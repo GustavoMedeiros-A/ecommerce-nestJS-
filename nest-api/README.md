@@ -42,3 +42,9 @@ Run the follow commands to verify if works
 - **docker compose exec db bash**
 - **mysql -uroot -proot**
 - **show databases;**
+
+# Create a FIXTURE to generate data to test the application
+
+- **Create the fixture.ts**
+- **Add the fixture generate in package.json**
+- **"fixture": "ts-node ./src/fixture.ts"**
