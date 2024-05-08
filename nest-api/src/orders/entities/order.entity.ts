@@ -42,7 +42,8 @@ export class Order {
   created_at: Date;
 
   // Order have a array with orderItems
-  @OneToMany(() => OrderItem, (item) => item.order)
+  // This cascade Means that if a INSERT the Order with the OrderItems, i'll add the items into the OrderItems
+  @OneToMany(() => OrderItem, (item) => item.order, { cascade: ['insert'] })
   items: OrderItem[];
 
   static create(input: CreateOrderCommand) {

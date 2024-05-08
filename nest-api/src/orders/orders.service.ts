@@ -20,12 +20,14 @@ export class OrdersService {
     // Catch only the uniqueProductIds :)
     const uniqueProductIds = [...new Set(productsIds)];
     const products = await this.productRepository.findByIds(uniqueProductIds);
-
+    console.log(products);
     if (products.length !== uniqueProductIds.length) {
-      throw new NotFoundException('Error to find some products');
+      throw new NotFoundException(
+        `Error to find some products; ${productsIds}. Find products: ${products.map((product) => product.id)}`,
+      );
     }
 
-    Order.create({
+    const order = Order.create({
       client_id: 1,
       items: createOrderDto.items.map((item) => {
         const product = products.find(
@@ -38,10 +40,13 @@ export class OrdersService {
         };
       }),
     });
+
+    await this.orderRepository.save(order);
+    return order;
   }
 
   findAll() {
-    return `This action returns all orders`;
+    return this.orderRepository.find();
   }
 
   findOne(id: number) {

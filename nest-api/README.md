@@ -48,3 +48,9 @@ Run the follow commands to verify if works
 - **Create the fixture.ts**
 - **Add the fixture generate in package.json**
 - **"fixture": "ts-node ./src/fixture.ts"**
+
+# Create the Order and OrderItem entities and start to implement the create method
+
+# Start to use VALIDATION methods from class-validator and class-transformer
+
+- **yarn add class-transformer class-validator**
