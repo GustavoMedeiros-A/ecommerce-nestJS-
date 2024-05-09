@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
-import { Order } from './entities/order.entity';
+import { CreateOrderCommand, Order } from './entities/order.entity';
+import { OrderItem } from './entities/order-item.entity';
 
 export class OrderRepository extends Repository<Order> {}

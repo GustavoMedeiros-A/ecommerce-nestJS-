@@ -7,12 +7,14 @@ import { In, Repository } from 'typeorm';
 import { OrderRepository } from './orders.repository';
 import { Product } from 'src/products/entities/product.entity';
 import { ProductRepository } from 'src/products/product.repository';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(Order) private orderRepository: OrderRepository,
     @InjectRepository(Product) private productRepository: ProductRepository,
+    private amqpConnection: AmqpConnection,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -27,7 +29,7 @@ export class OrdersService {
       );
     }
 
-    const order = Order.create({
+    const order = Order.create_orders({
       client_id: 1,
       items: createOrderDto.items.map((item) => {
         const product = products.find(
@@ -42,6 +44,15 @@ export class OrdersService {
     });
 
     await this.orderRepository.save(order);
+    this.amqpConnection.publish('amq.direct', 'OrderCreated', {
+      order_id: order.id,
+      card_hash: createOrderDto.card_hash,
+      total: order.total,
+    });
+    // Publicar diretamente em uma fila
+    // Em um cenario de microserviço, publicar em uma fila seria ruim caso outro microserviço esteja INTERASSADO na messagem
+    // Pra nao ter esse problema e o publish Rotear a messagem para varias filas se elas estiverem interessadas
+    // AS EXCHANGES vão fazer isso
     return order;
   }
 

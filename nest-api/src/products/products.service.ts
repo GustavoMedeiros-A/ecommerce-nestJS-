@@ -18,7 +18,15 @@ export class ProductsService {
     return this.productRepository.save(product);
   }
 
-  findAll() {
+  // public String getName() {
+  //   return ""
+  // }
+
+  // public ArrayList<Product>() findAll() {
+  //   return
+  // }
+
+  findAll(): Promise<Product[]> {
     return this.productRepository.find();
   }
 

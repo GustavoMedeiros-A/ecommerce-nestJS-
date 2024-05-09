@@ -46,7 +46,7 @@ export class Order {
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: ['insert'] })
   items: OrderItem[];
 
-  static create(input: CreateOrderCommand) {
+  static create_orders(input: CreateOrderCommand) {
     const order = new Order();
     order.client_id = input.client_id;
     order.items = input.items.map((item) => {

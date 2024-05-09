@@ -54,3 +54,13 @@ Run the follow commands to verify if works
 # Start to use VALIDATION methods from class-validator and class-transformer
 
 - **yarn add class-transformer class-validator**
+
+# Start to use RabbitMQ
+
+- **yarn add @golevelup/nestjs-rabbitmq**
+
+**Start to use the Queue and Exchanges**
+
+- **In RabbitMQ interface**
+- Create the QUEUE call microservice-payment (Can we create this QUEUE when the microservice is started???)
+- Add in the BINDINGS the exchange with the **amqp.direct** and the name **OrderCreated**
