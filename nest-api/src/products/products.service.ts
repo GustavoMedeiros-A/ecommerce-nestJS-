@@ -17,15 +17,6 @@ export class ProductsService {
     const product = this.productRepository.create(createProductDto);
     return this.productRepository.save(product);
   }
-
-  // public String getName() {
-  //   return ""
-  // }
-
-  // public ArrayList<Product>() findAll() {
-  //   return
-  // }
-
   findAll(): Promise<Product[]> {
     return this.productRepository.find();
   }
