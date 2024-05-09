@@ -49,7 +49,9 @@ export class OrdersService {
     return this.orderRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  findOne(id: string) {
+    return this.orderRepository.findBy({
+      id: id,
+    });
   }
 }
